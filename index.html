@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app='todoApp'>
+  <head>
+    <meta charset="utf-8" />
+    <title>todo</title>
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="node_modules/angular-ui-router/build/angular-ui-router.js"></script>
+  </head>
+  <body ng-controller="todoController">
+    <div id="app">
+      <h1>todo</h1>
+      <form ng-submit="addTodo()">
+        <input ng-model="newEntry" />
+      </form>
+
+      <ul>
+        <li ng-repeat="todo in todos | orderBy:'-priority'">
+          <span>{{todo.text}}</span>
+          <span>{{todo.priority}}</span>
+          <button ng-click="removeTodo(todo)">Done</button>
+          <button ng-click="increasePriority(todo)"> + </button>
+          <button ng-click="decreasePriority(todo)"> - </button>
+        </li>
+      </ul>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
