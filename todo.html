@@ -1,0 +1,21 @@
+<div ng-controller="todoController">
+  <h1>todo</h1>
+
+  <form ng-submit="addTodo()">
+    <input ng-model="newEntry" autofocus/>
+  </form>
+
+  <ul>
+    <li ng-repeat="todo in todos | orderBy:'-priority'">
+      <span ng-class="{
+        'important': todo.priority > 1,
+        'super-important': todo.priority > 4,
+        'ultra-important': todo.priority > 7
+      }">{{todo.text}}</span>
+      <span>{{todo.priority}}</span>
+      <button ng-click="removeTodo(todo)">Done</button>
+      <button ng-click="increasePriority(todo)"> + </button>
+      <button ng-click="decreasePriority(todo)"> - </button>
+    </li>
+  </ul>
+</div>

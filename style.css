@@ -1,0 +1,14 @@
+.important {
+  color: green;
+  font-size: 16px;
+}
+
+.super-important {
+  color: orange;
+  font-size: 20px;
+}
+
+.ultra-important {
+  color: red;
+  font-size: 26px;
+}

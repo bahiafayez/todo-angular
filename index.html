@@ -5,24 +5,52 @@
     <title>todo</title>
     <script src="node_modules/angular/angular.js"></script>
     <script src="node_modules/angular-ui-router/build/angular-ui-router.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
-  <body ng-controller="todoController">
-    <div id="app">
-      <h1>todo</h1>
-      <form ng-submit="addTodo()">
-        <input ng-model="newEntry" />
-      </form>
+  <body>
 
-      <ul>
-        <li ng-repeat="todo in todos | orderBy:'-priority'">
-          <span>{{todo.text}}</span>
-          <span>{{todo.priority}}</span>
-          <button ng-click="removeTodo(todo)">Done</button>
-          <button ng-click="increasePriority(todo)"> + </button>
-          <button ng-click="decreasePriority(todo)"> - </button>
-        </li>
-      </ul>
-    </div>
+  <script type="text/ng-template" id="todo.html">
+
+  <div>
+    <h1>todo</h1>
+
+    <form ng-submit="addTodo()">
+      <input ng-model="newEntry" autofocus/>
+    </form>
+
+    <ul>
+      <li ng-repeat="todo in todos | orderBy:'-priority' | filter: {completed: 'false'} ">
+        <span ng-class="{
+          'important': todo.priority > 1,
+          'super-important': todo.priority > 4,
+          'ultra-important': todo.priority > 7
+        }">{{todo.text}}</span>
+        <span>{{todo.priority}}</span>
+        <button ng-click="removeTodo(todo)">Done</button>
+        <button ng-click="increasePriority(todo)"> + </button>
+        <button ng-click="decreasePriority(todo)"> - </button>
+      </li>
+    </ul>
+  </div>
+
+  <div ui-view></div>
+
+  </script>
+
+  <script type="text/ng-template" id="archive.html">
+
+  <div>
+    <h1>archived items</h1>
+    <ul>
+      <li ng-repeat="todo in todos | orderBy:'-priority'| filter: {completed: 'true'}">
+        <span>{{todo.text}}</span>
+      </li>
+    </ul>
+  </div>
+
+
+  </script>
+    <div ui-view></div>
     <script src="app.js"></script>
   </body>
 </html>
